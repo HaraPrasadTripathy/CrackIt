@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Password Cracker</title>
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 50px;
+}
+
+input[type="text"] {
+    width: 300px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+button {
+    margin-left: 0.2rem;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.result {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.cracked {
+    font-size: 1.2em;
+    color: #28a745; /* Green color for cracked string */
+    margin-top: 10px;
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+#loader-container {
+    height: 10rem;
+    width: 10rem;
+    margin-left: 31.6rem;
+    display: none;
+}
+</style>
+</head>
+<body>
+    <div class="container">
+        <h1>Password Cracker</h1>
+        <form action="/" method="POST" onsubmit="showLoader(); clearResult()">
+          <input type="text" id="inputString" name="string" placeholder="Enter your password">
+          <button type="submit">Crack Password</button>
+        </form>
+    
+        <div id="result" class="result">
+            <img id="loader-container" src="static\loader.gif">
+          {% if message %}
+            <p>{{ message }}</p>
+          {% elif result %}
+            <p>Cracked Password:</p>
+            <p class="cracked">{{ result }}</p>
+            {% if time_taken is defined %}
+              {% if time_taken <= 60 %}
+                <p>Time taken to crack: {{ time_taken }} seconds</p>
+              {% else %}
+                <p>Estimated time to crack: {{ time_taken }} seconds</p>
+              {% endif %}
+            {% endif %}
+          {% endif %}
+        </div>
+      </div>
+
+    <script>
+        function showLoader() {
+            document.getElementById("loader-container").style.display = "block";
+        }
+    </script>
+      
+    </body>
+    </html>
+
